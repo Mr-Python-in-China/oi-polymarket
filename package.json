@@ -1,0 +1,38 @@
+{
+  "name": "oi-polymarket",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "react-router-serve build/server/index.js",
+    "typecheck": "pnpm run typegen && tsc",
+    "lint": "oxlint .",
+    "format": "oxfmt . --write",
+    "precommit": "oxfmt . --check && pnpm run lint && tsc",
+    "prepare": "husky && pnpm run typegen",
+    "typegen": "react-router typegen"
+  },
+  "dependencies": {
+    "@react-router/serve": "^8.3.0",
+    "@remix-run/node-fetch-server": "^0.13.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router": "^8.3.0"
+  },
+  "devDependencies": {
+    "@ogs-gmbh/oxlint-presets": "^1.1.0",
+    "@react-router/dev": "^8.3.0",
+    "@types/node": "24.5.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-rsc": "^0.5.27",
+    "husky": "^9.1.7",
+    "oxfmt": "^0.62.0",
+    "oxlint": "^1.77.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.0.3",
+    "vite-plugin-devtools-json": "^1.0.0"
+  },
+  "packageManager": "pnpm@11.20.0+sha512.9a6f330a95b66446ea088faf1521405a8a01f07fde7124cc9958dfed52d4bb436737e65b08f85f37b46fcba375092558ac51262b816844b22f63406ed166bfee"
+}

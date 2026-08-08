@@ -1,0 +1,40 @@
+{
+  "plugins": [
+    "typescript",
+    "react",
+    "import",
+    "node",
+    "promise",
+    "vitest",
+    "react-perf"
+  ],
+  "extends": [
+    "node_modules/@ogs-gmbh/oxlint-presets/typescript-recommended.json",
+    "node_modules/@ogs-gmbh/oxlint-presets/react-recommended.json",
+    "node_modules/@ogs-gmbh/oxlint-presets/import-recommended.json",
+    "node_modules/@ogs-gmbh/oxlint-presets/node-recommended.json",
+    "node_modules/@ogs-gmbh/oxlint-presets/promise-recommended.json"
+  ],
+  "rules": {
+    "import/no-absolute-path": "allow",
+    "import/group-exports": "allow",
+    "import/exports-last": "allow",
+    "typescript/no-invalid-void-type": "allow",
+    "typescript/consistent-type-definitions": "allow"
+  },
+  "options": { "maxWarnings": 0 },
+  "categories": {},
+  "env": {
+    "builtin": true,
+    "es2020": true,
+    "browser": true
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "coverage/",
+    "build/",
+    ".react-router/",
+    "pnpm-lock.yaml",
+    "worker-configuration.d.ts"
+  ]
+}

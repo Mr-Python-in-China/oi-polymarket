@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "oxc.oxc-vscode",
+    "ms-ossdata.vscode-pgsql",
+    "TypeScriptTeam.native-preview",
+    "ms-edgedevtools.vscode-edge-devtools",
+    "firefox-devtools.vscode-firefox-debug",
+    "prisma.prisma"
+  ]
+}

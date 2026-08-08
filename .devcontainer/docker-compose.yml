@@ -1,0 +1,35 @@
+services:
+  dev:
+    image: mcr.microsoft.com/devcontainers/base:resolute
+    entrypoint: /bin/bash
+    command: -i -c "sleep infinity"
+    volumes:
+      - ..:/workspaces/oi-polymarket:cached
+
+    environment:
+      - PGHOST=db
+      - PGUSER=oi-polymarket-dev
+      - PGPASSWORD=DEV_PASSWORD
+      - PGDATABASE=oi-polymarket
+    networks:
+      - my-network
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=oi-polymarket-dev
+      - POSTGRES_PASSWORD=DEV_PASSWORD
+      - POSTGRES_DB=oi-polymarket
+    networks:
+      - my-network
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  db_data:
