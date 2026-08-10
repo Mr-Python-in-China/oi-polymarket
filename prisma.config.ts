@@ -8,6 +8,9 @@ export default defineConfig({
   migrations: {
     path: "prisma/migrations",
   },
+  typedSql: {
+    path: "prisma/sql",
+  },
   datasource: {
     url: process.env["DATABASE_URL"],
   },

@@ -38,5 +38,8 @@
       "profileSource": 0,
       "displayName": "db, oi-polymarket (oi-polymarket-dev)"
     }
-  ]
+  ],
+  "[sql]": {
+    "editor.defaultFormatter": "ms-ossdata.vscode-pgsql"
+  }
 }

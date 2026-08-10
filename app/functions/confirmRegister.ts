@@ -1,5 +1,7 @@
 "use server";
 
+import { register } from "~prisma/sql";
+
 import prisma from "~/db";
 import { getSession } from "~/sessions";
 
@@ -8,13 +10,16 @@ export default async function confirmRegister() {
   const registerConfirmationInfo = session.get("registerConfirmation");
   if (!registerConfirmationInfo)
     throw new Error("No register confirmation info in session");
-  const user = await prisma.user.create({
-    data: {
-      username: registerConfirmationInfo.codeforcesHandle,
-      avatar: registerConfirmationInfo.codeforcesAvatar,
-      codeforcesSub: registerConfirmationInfo.codeforcesSub,
-    },
-  });
-  session.set("user", { id: user.id });
+  // });
+  const id = (
+    (await prisma.$queryRawTyped(
+      register(
+        registerConfirmationInfo.codeforcesHandle,
+        registerConfirmationInfo.codeforcesAvatar,
+        registerConfirmationInfo.codeforcesSub,
+      ),
+    )) as [{ id: number }]
+  )[0].id;
+  session.set("user", { id });
   session.unset("registerConfirmation");
 }

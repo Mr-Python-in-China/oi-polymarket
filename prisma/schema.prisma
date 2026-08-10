@@ -4,12 +4,18 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "./generated"
+  provider        = "prisma-client"
+  output          = "./generated"
+  previewFeatures = ["typedSql"]
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+enum UserRole {
+  USER
+  ADMIN
 }
 
 model User {
@@ -18,6 +24,7 @@ model User {
   avatar        String
   codeforcesSub String   @unique @db.Bit(256)
   createdAt     DateTime @default(now())
+  role          UserRole @default(USER)
 }
 
 model Session {
