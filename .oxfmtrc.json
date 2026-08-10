@@ -7,6 +7,9 @@
     "coverage/",
     "build/",
     ".react-router/",
-    "pnpm-lock.yaml"
+    "pnpm-lock.yaml",
+    ".agents/",
+    "prisma/migrations/",
+    "pnpm-workspace.yaml"
   ]
 }

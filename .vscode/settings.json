@@ -4,5 +4,39 @@
   "js/ts.tsdk.path": "./node_modules/typescript",
 
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "oxc.oxc-vscode"
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+  "pgsql.serverGroups": [
+    {
+      "id": "410C7F84-5DCA-4867-B296-775773054410",
+      "name": "服务器"
+    }
+  ],
+  "pgsql.connections": [
+    {
+      "id": "821AC196-52E1-4BDD-9AEB-8C8149DEC2D0",
+      "groupId": "410C7F84-5DCA-4867-B296-775773054410",
+      "authenticationType": "SqlLogin",
+      "connectTimeout": 15,
+      "applicationName": "vscode-pgsql",
+      "clientEncoding": "utf8",
+      "sslmode": "disable",
+      "sshSavePassword": true,
+      "savePassword": true,
+      "sslRootCertMode": "none",
+      "connectionString": "postgresql://oi-polymarket-dev:DEV_PASSWORD@db:5432/oi-polymarket",
+      "server": "db",
+      "user": "oi-polymarket-dev",
+      "port": "5432",
+      "database": "oi-polymarket",
+      "password": "",
+      "profileName": "db, oi-polymarket (oi-polymarket-dev)",
+      "expiresOn": 0,
+      "sshPassword": "",
+      "profileSource": 0,
+      "displayName": "db, oi-polymarket (oi-polymarket-dev)"
+    }
+  ]
 }

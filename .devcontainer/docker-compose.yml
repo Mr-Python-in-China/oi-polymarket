@@ -7,25 +7,34 @@ services:
       - ..:/workspaces/oi-polymarket:cached
 
     environment:
-      - PGHOST=db
-      - PGUSER=oi-polymarket-dev
-      - PGPASSWORD=DEV_PASSWORD
-      - PGDATABASE=oi-polymarket
+      - DATABASE_URL=postgresql://oi-polymarket-dev:DEV_PASSWORD@db:5432/oi-polymarket
+      - VITE_DEV_HOST=0.0.0.0
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
       - my-network
 
   db:
-    image: postgres:15-alpine
+    build:
+      context: .
+      dockerfile: postgres.Dockerfile
     environment:
       - POSTGRES_USER=oi-polymarket-dev
       - POSTGRES_PASSWORD=DEV_PASSWORD
       - POSTGRES_DB=oi-polymarket
+      - TZ=UTC
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U oi-polymarket-dev -d oi-polymarket"]
+      interval: 1s
+      timeout: 1s
+      retries: 20
     networks:
       - my-network
     ports:
       - "5432:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql
 
 networks:
   my-network:

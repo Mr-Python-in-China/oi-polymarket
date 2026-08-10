@@ -1,3 +1,4 @@
+import { ConfigProvider, App as AntApp } from "antd";
 import {
   isRouteErrorResponse,
   Links,
@@ -7,8 +8,17 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
+import { contextStorageMiddleware } from "./context";
+import { sessionMiddleware } from "./sessions";
 
 import "./app.css";
+import { getUser } from "./utils/getUser";
+import { UserContextProvider } from "./utils/userContext";
+
+export const middleware: Route.MiddlewareFunction[] = [
+  contextStorageMiddleware,
+  sessionMiddleware,
+];
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -23,7 +33,7 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <head>
@@ -38,13 +48,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
-}
+};
 
-export default function App() {
-  return <Outlet />;
-}
+export const ServerComponent = async () => {
+  const user = await getUser();
+  return (
+    <UserContextProvider
+      value={
+        user
+          ? {
+              status: "authenticated",
+              id: user.id,
+              name: user.username,
+            }
+          : { status: "unauthenticated" }
+      }
+    >
+      <ConfigProvider>
+        <AntApp>
+          <Outlet />
+        </AntApp>
+      </ConfigProvider>
+    </UserContextProvider>
+  );
+};
 
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+export const ErrorBoundary = ({ error }: Route.ErrorBoundaryProps) => {
   let message = "Oops!";
   let details = "An unexpected error occurred.";
   let stack: string | undefined;
@@ -71,4 +100,4 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       )}
     </main>
   );
-}
+};

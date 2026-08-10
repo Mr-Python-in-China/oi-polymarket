@@ -13,7 +13,7 @@
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [5432, 12968],
+  "forwardPorts": [12968],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "/usr/local/share/nvm/nvm.sh install && /usr/local/share/nvm/nvm.sh use && corepack enable && corepack pnpm --version",

@@ -35,6 +35,8 @@
     "build/",
     ".react-router/",
     "pnpm-lock.yaml",
-    "worker-configuration.d.ts"
+    ".agents/",
+    "prisma/migrations/",
+    "pnpm-workspace.yaml"
   ]
 }

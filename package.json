@@ -11,14 +11,26 @@
     "format": "oxfmt . --write",
     "precommit": "oxfmt . --check && pnpm run lint && tsc",
     "prepare": "husky && pnpm run typegen",
-    "typegen": "react-router typegen"
+    "typegen": "react-router typegen && prisma generate"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
     "@react-router/serve": "^8.3.0",
     "@remix-run/node-fetch-server": "^0.13.0",
+    "antd": "^6.5.4",
+    "client-only": "^0.0.1",
+    "dotenv": "^17.4.2",
+    "jose": "^6.2.8",
+    "js-base64": "^3.9.2",
+    "prisma": "^7.9.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router": "^8.3.0"
+    "react-router": "^8.3.0",
+    "remix-utils": "^10.0.0",
+    "server-only": "^0.0.1",
+    "vite-env-only": "^3.0.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@ogs-gmbh/oxlint-presets": "^1.1.0",
@@ -32,7 +44,7 @@
     "oxlint": "^1.77.0",
     "typescript": "^7.0.2",
     "vite": "^8.0.3",
-    "vite-plugin-devtools-json": "^1.0.0"
+    "vite-plugin-devtools-json": "^1.1.0"
   },
   "packageManager": "pnpm@11.20.0+sha512.9a6f330a95b66446ea088faf1521405a8a01f07fde7124cc9958dfed52d4bb436737e65b08f85f37b46fcba375092558ac51262b816844b22f63406ed166bfee"
 }

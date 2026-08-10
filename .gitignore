@@ -7,3 +7,5 @@
 /build/
 
 .pnpm-store
+
+/prisma/generated
