@@ -9,6 +9,9 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
+  ssr: {
+    noExternal: ["@emotion/hash"],
+  },
   server: {
     host: process.env.VITE_DEV_HOST || undefined,
     port: 12968,

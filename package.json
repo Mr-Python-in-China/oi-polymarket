@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
+    "build": "pnpm run typegen && react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve build/server/index.js",
     "typecheck": "pnpm run typegen && tsc",
@@ -11,7 +11,7 @@
     "format": "oxfmt . --write",
     "precommit": "oxfmt . --check && pnpm run lint && tsc",
     "prepare": "husky && pnpm run typegen",
-    "typegen": "react-router typegen && prisma generate"
+    "typegen": "react-router typegen && prisma generate --sql"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",
