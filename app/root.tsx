@@ -60,6 +60,7 @@ export const ServerComponent = async () => {
               status: "authenticated",
               id: user.id,
               name: user.username,
+              role: user.role,
             }
           : { status: "unauthenticated" }
       }

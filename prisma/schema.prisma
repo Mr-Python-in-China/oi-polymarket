@@ -25,6 +25,28 @@ model User {
   codeforcesSub String   @unique @db.Bit(256)
   createdAt     DateTime @default(now())
   role          UserRole @default(USER)
+
+  events Event[]
+}
+
+model Event {
+  id          String   @id @default(uuid(7)) @db.Uuid
+  title       String
+  description String
+  lockAt      DateTime
+  choices     Choice[]
+  createById  Int
+  createBy    User     @relation(fields: [createById], references: [id])
+}
+
+model Choice {
+  id      String @id @default(uuid(7)) @db.Uuid
+  title   String
+  eventId String @db.Uuid
+  event   Event  @relation(fields: [eventId], references: [id])
+  order   Int    @db.SmallInt
+
+  @@index([eventId])
 }
 
 model Session {

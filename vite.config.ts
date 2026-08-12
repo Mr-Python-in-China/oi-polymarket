@@ -10,7 +10,7 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   ssr: {
-    noExternal: ["@emotion/hash"],
+    noExternal: true,
   },
   server: {
     host: process.env.VITE_DEV_HOST || undefined,

@@ -7,6 +7,7 @@ export type UserContextType =
       status: "authenticated";
       id: number;
       name: string;
+      role: "USER" | "ADMIN";
     }
   | {
       status: "unauthenticated";
