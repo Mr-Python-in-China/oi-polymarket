@@ -40,11 +40,12 @@ model Event {
 }
 
 model Choice {
-  id      String @id @default(uuid(7)) @db.Uuid
-  title   String
-  eventId String @db.Uuid
-  event   Event  @relation(fields: [eventId], references: [id])
-  order   Int    @db.SmallInt
+  id        String @id @default(uuid(7)) @db.Uuid
+  title     String
+  eventId   String @db.Uuid
+  event     Event  @relation(fields: [eventId], references: [id])
+  order     Int    @db.SmallInt
+  lastPrice Int?   @db.SmallInt
 
   @@index([eventId])
 }

@@ -1,9 +1,10 @@
 import type { FC } from "react";
 
-import { getUser } from "~/utils/getUser";
+import IndexPage from "~/components/IndexPage";
+import listEvents from "~/functions/listEvents";
 
 import type { Route } from "./+types/index";
 export const ServerComponent: FC<Route.ServerComponentProps> = async () => {
-  const user = await getUser();
-  return user ? "当前用户：" + user.username : "未登录";
+  const initialEvents = await listEvents(undefined);
+  return <IndexPage initialEvents={initialEvents} />;
 };
