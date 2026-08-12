@@ -10,7 +10,7 @@
     "lint": "oxlint .",
     "format": "oxfmt . --write",
     "precommit": "oxfmt . --check && pnpm run lint && tsc",
-    "prepare": "husky && pnpm run typegen",
+    "prepare": "husky",
     "typegen": "react-router typegen && prisma generate --sql"
   },
   "dependencies": {
