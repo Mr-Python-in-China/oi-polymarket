@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import { redirect } from "react-router";
 
 import LoginPage from "~/components/LoginPage";
@@ -15,9 +16,9 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
   return { redirectTo, oauthNonce };
 };
 
-export const ServerComponent = ({
+export const ServerComponent: FC<Route.ServerComponentProps> = ({
   loaderData: { oauthNonce, redirectTo },
-}: Route.ServerComponentProps) => {
+}) => {
   const clientId = process.env.CODEFORCES_OAUTH_CLIENT_ID;
   if (!clientId) {
     throw new Error("CODEFORCES_OAUTH_CLIENT_ID is not configured");
