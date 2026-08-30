@@ -18,8 +18,8 @@ const IndexPage: FC<{
     try {
       const lastId = events.at(-1)?.id;
       const newEvents = await listEvents(lastId);
+      setEvents((x) => [...x, ...newEvents.events]);
       if (!newEvents.hasMore) setNoMoreEvents(true);
-      else setEvents((x) => [...x, ...newEvents.events]);
     } catch (err) {
       message.error("加载失败");
       console.error("Failed to load more events:", err);

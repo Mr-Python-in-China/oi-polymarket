@@ -8,11 +8,7 @@ const Datetime: FC<{ date: Parameters<typeof dayjs>[0] }> = ({ date }) => {
     setStr(obj.format("YYYY-MM-DD HH:mm:ss[!]Z"));
   }, [obj.toISOString()]);
   return (
-    <time
-      dateTime={obj.toISOString()}
-      title={obj.toISOString()}
-      suppressHydrationWarning
-    >
+    <time dateTime={obj.toISOString()} title={obj.toISOString()}>
       {str.split("!")[0]}
       <sup>UTC{str.split("!")[1]}</sup>
     </time>

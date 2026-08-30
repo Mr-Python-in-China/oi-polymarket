@@ -50,9 +50,6 @@ importers:
       jose:
         specifier: ^6.2.8
         version: 6.2.8
-      js-base64:
-        specifier: ^3.9.2
-        version: 3.9.2
       prisma:
         specifier: ^7.9.1
         version: 7.9.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2)
@@ -1873,9 +1870,6 @@ packages:
 
   jose@6.2.8:
     resolution: {integrity: sha512-Bsdjwm3Qsd/P0jR+BHDe3LytDfY7WBq2HmCCLIwuVRHMuEC9ae7/R474GIUdF1NgCyZjzVo/A9DOiOBtXq8ZoQ==}
-
-  js-base64@3.9.2:
-    resolution: {integrity: sha512-6zayE8QlUdiweYI6cETD/XBSqFcoCUlufn/29PJR99r82x1yDnIprRca0YvAYpAW+ez0GuQkVBC6xG5QkD7OjA==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -4345,8 +4339,6 @@ snapshots:
   jiti@2.7.0: {}
 
   jose@6.2.8: {}
-
-  js-base64@3.9.2: {}
 
   js-tokens@4.0.0: {}
 
