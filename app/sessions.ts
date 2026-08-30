@@ -8,7 +8,7 @@ import prisma from "./db";
 type SessionData = {
   oauthNonce?: string;
   user: {
-    id: number;
+    id: string;
   };
   registerConfirmation: {
     codeforcesSub: string;

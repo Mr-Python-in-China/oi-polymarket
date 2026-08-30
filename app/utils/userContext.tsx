@@ -5,7 +5,7 @@ import { createContext, use, type ReactNode } from "react";
 export type UserContextType =
   | {
       status: "authenticated";
-      id: number;
+      id: bigint;
       name: string;
       role: "USER" | "ADMIN";
     }

@@ -10,10 +10,12 @@ export const getUser = cache(async () => {
   const user =
     uid === undefined
       ? undefined
-      : await prisma.user.findUnique({ where: { id: uid } }).then((u) => {
-          if (!u)
-            throw new Error(`Internal Error: User with id ${uid} not found`);
-          return u;
-        });
+      : await prisma.user
+          .findUnique({ where: { id: BigInt(uid) } })
+          .then((u) => {
+            if (!u)
+              throw new Error(`Internal Error: User with id ${uid} not found`);
+            return u;
+          });
   return user;
 });

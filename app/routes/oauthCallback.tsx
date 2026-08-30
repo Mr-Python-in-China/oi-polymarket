@@ -123,7 +123,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
   if (updatedUsers.length > 1)
     throw new Error("Internal error: duplicate codeforcesSub found");
 
-  session.set("user", { id: updatedUsers[0].id });
+  session.set("user", { id: String(updatedUsers[0].id) });
 
   return redirect(state.to, { status: 302 });
 };

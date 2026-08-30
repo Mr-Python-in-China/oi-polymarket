@@ -3,11 +3,11 @@
 import prisma from "~/db";
 
 export default async function listEvents(
-  cursor: string | undefined,
+  cursor: bigint | undefined,
   limits: number = 64,
 ) {
   if (
-    (typeof cursor !== "string" && typeof cursor !== "undefined") ||
+    (typeof cursor !== "bigint" && typeof cursor !== "undefined") ||
     typeof limits !== "number" ||
     !Number.isInteger(limits) ||
     limits <= 0
@@ -15,10 +15,10 @@ export default async function listEvents(
     throw new TypeError("Invalid arguments");
   if (limits > 64)
     throw new RangeError("limits must be less than or equal to 64");
-  return await prisma.event.findMany({
+  const res = await prisma.event.findMany({
     cursor: cursor ? { id: cursor } : undefined,
     skip: cursor ? 1 : 0,
-    take: limits,
+    take: limits + 1,
     orderBy: { id: "desc" },
     select: {
       id: true,
@@ -29,8 +29,12 @@ export default async function listEvents(
           title: true,
           lastPrice: true,
         },
-        orderBy: { order: "asc" },
+        orderBy: { id: "asc" },
       },
     },
   });
+  return {
+    events: res.slice(0, limits),
+    hasMore: res.length > limits,
+  };
 }

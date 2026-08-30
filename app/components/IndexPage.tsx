@@ -12,14 +12,14 @@ const IndexPage: FC<{
   initialEvents: Awaited<ReturnType<typeof listEvents>>;
 }> = ({ initialEvents }) => {
   const { message } = App.useApp();
-  const [events, setEvents] = useState(initialEvents);
-  const [noMoreEvents, setNoMoreEvents] = useState(false);
+  const [events, setEvents] = useState(initialEvents.events);
+  const [noMoreEvents, setNoMoreEvents] = useState(!initialEvents.hasMore);
   async function loadMore() {
     try {
       const lastId = events.at(-1)?.id;
       const newEvents = await listEvents(lastId);
-      if (newEvents.length === 0) setNoMoreEvents(true);
-      else setEvents((x) => [...x, ...newEvents]);
+      if (!newEvents.hasMore) setNoMoreEvents(true);
+      else setEvents((x) => [...x, ...newEvents.events]);
     } catch (err) {
       message.error("加载失败");
       console.error("Failed to load more events:", err);

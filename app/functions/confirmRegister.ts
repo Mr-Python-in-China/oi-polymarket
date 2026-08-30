@@ -11,15 +11,15 @@ export default async function confirmRegister() {
   if (!registerConfirmationInfo)
     throw new Error("No register confirmation info in session");
   // });
-  const id = (
-    (await prisma.$queryRawTyped(
-      register(
-        registerConfirmationInfo.codeforcesHandle,
-        registerConfirmationInfo.codeforcesAvatar,
-        registerConfirmationInfo.codeforcesSub,
-      ),
-    )) as [{ id: number }]
-  )[0].id;
-  session.set("user", { id });
+  const result = await prisma.$queryRawTyped(
+    register(
+      registerConfirmationInfo.codeforcesHandle,
+      registerConfirmationInfo.codeforcesAvatar,
+      registerConfirmationInfo.codeforcesSub,
+    ),
+  );
+  const id = result[0]?.id as bigint | undefined;
+  if (id === undefined) throw new Error("Failed to register user");
+  session.set("user", { id: String(id) });
   session.unset("registerConfirmation");
 }

@@ -31,7 +31,7 @@ export default async function createEvent(unsafeData: unknown) {
       createById: user.id,
       choices: {
         createMany: {
-          data: data.choices.map((x, i) => ({ title: x.title, order: i })),
+          data: data.choices.map((x) => ({ title: x.title })),
         },
       },
     },
