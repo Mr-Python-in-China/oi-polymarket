@@ -17,6 +17,7 @@
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "/usr/local/share/nvm/nvm.sh install && /usr/local/share/nvm/nvm.sh use && corepack enable && corepack pnpm --version",
+  "postStartCommand": "psql --dbname=\"${DATABASE_URL:?DATABASE_URL must be set}\" -v ON_ERROR_STOP=1 -f /workspaces/oi-polymarket/.devcontainer/init-test-db.sql",
   "customizations": {
     "vscode": {
       "extensions": [

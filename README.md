@@ -36,6 +36,40 @@ npm run dev
 
 Your application will be available at `http://localhost:12968`.
 
+## Tests
+
+Run the database-independent Node unit tests with `pnpm test` (or
+`pnpm run test:unit`). The dedicated Vitest configuration does not load the
+React Router RSC plugins. Tests cover JSON/OAuth state codecs, pagination,
+authorization, and event validation. Database and authentication dependencies
+are mocked; these tests do not verify the RSC transport or session middleware.
+
+Rebuild the development container after updating its Compose configuration.
+It uses the existing PostgreSQL `db` service for both `oi-polymarket` and
+`oi-polymarket-test`, and sets `TEST_DATABASE_URL` automatically. The dev
+container's `postStartCommand` creates the test database only if it does not
+exist, including with existing data volumes. Only the `dev` and `db` services
+are needed. Both databases persist in `db_data`; existing development data
+is not reset. They share the local development account, so this is database
+separation, not permission isolation.
+
+Outside the dev container, export `TEST_DATABASE_URL` pointing to a dedicated
+PostgreSQL test database, different from the application's `DATABASE_URL`.
+After installing dependencies and generating the Prisma client through the
+normal project setup, run:
+
+```bash
+pnpm run test:integration
+```
+
+The integration global setup automatically applies migrations using only the
+test URL; it never resets or drops a database. Integration tests use the real database and mock only the authenticated-user
+lookup. Fixtures are created in a transaction and rolled back, including on
+assertion failures. Use an otherwise idle database: pagination assertions
+assume no concurrent event inserts. PostgreSQL sequences can still advance
+after rollback. Missing `TEST_DATABASE_URL` fails explicitly rather than
+silently skipping the suite.
+
 ## Building for Production
 
 Create a production build:

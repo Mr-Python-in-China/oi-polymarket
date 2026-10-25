@@ -2,7 +2,6 @@
   // typescript 7
   "js/ts.experimental.useTsgo": true,
   "js/ts.tsdk.path": "./node_modules/typescript",
-
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "[prisma]": {
@@ -26,7 +25,6 @@
       "sshSavePassword": true,
       "savePassword": true,
       "sslRootCertMode": "none",
-      "connectionString": "postgresql://oi-polymarket-dev:DEV_PASSWORD@db:5432/oi-polymarket",
       "server": "db",
       "user": "oi-polymarket-dev",
       "port": "5432",
