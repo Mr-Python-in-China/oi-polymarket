@@ -64,11 +64,45 @@ pnpm run test:integration
 
 The integration global setup automatically applies migrations using only the
 test URL; it never resets or drops a database. Integration tests use the real database and mock only the authenticated-user
-lookup. Fixtures are created in a transaction and rolled back, including on
-assertion failures. Use an otherwise idle database: pagination assertions
+lookup. Event fixtures are rolled back in a transaction; concurrent order tests
+create committed fixtures and delete their own records in teardown. Use an otherwise idle database: pagination assertions
 assume no concurrent event inserts. PostgreSQL sequences can still advance
 after rollback. Missing `TEST_DATABASE_URL` fails explicitly rather than
 silently skipping the suite.
+
+## Order Matching MVP
+
+Apply migrations before generating typed SQL or running the application:
+
+```bash
+pnpm exec prisma migrate deploy
+pnpm run typegen
+```
+
+The authenticated `submitOrder` server function accepts `eventId` and `choiceId`
+as bigint, `side` (`BUY` or `SELL`), integer `price` (0 to 1000), positive bigint
+`quantity`, and a nonempty `idempotencyKey` of at most 128 characters. The user
+ID comes from the session, not request data. Returned IDs and quantities are
+bigint; use the existing JSON codec if passing results through JSON.
+
+PostgreSQL `submit_order` owns the entire atomic operation. A transaction-level
+advisory lock serializes submissions for each choice. Compatible orders match
+in best-price order, then insertion order (ID), at the resting order's price.
+Matching continues until the incoming quantity is filled or no compatible
+order remains. `OPEN` and `PARTIALLY_FILLED` orders with remaining quantity are
+the queue; no worker is required. Self-trading is allowed.
+
+Keys are unique per user. Retrying identical parameters returns the current
+order, including after the event closes; reusing a key with different parameters
+fails. New orders are rejected after the event deadline. Order status and
+remaining quantity are protected by database checks; trades record each fill
+and `Choice.lastPrice` is only a display cache. Application submissions must use
+the function, not direct order writes. No balances, holdings, settlement,
+cancellation, or public order UI are implemented, so SELL does not prove asset
+ownership. This is an order-matching ledger, not a funded trading system.
+
+Order integration tests cover price/time priority, partial and multi-fill
+matching, concurrent submissions, idempotency, deadlines, and authentication.
 
 ## Building for Production
 

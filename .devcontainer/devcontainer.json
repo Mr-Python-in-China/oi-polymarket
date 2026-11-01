@@ -26,7 +26,8 @@
         "TypeScriptTeam.native-preview",
         "ms-edgedevtools.vscode-edge-devtools",
         "firefox-devtools.vscode-firefox-debug",
-        "Prisma.prisma"
+        "Prisma.prisma",
+        "vitest.explorer"
       ]
     }
   }

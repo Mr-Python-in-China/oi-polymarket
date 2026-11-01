@@ -27,6 +27,7 @@ model User {
   role          UserRole @default(USER)
 
   events Event[]
+  orders Order[]
 }
 
 model Event {
@@ -35,19 +36,70 @@ model Event {
   description String
   lockAt      DateTime
   choices     Choice[]
+  orders      Order[]
   createById  BigInt
   createBy    User     @relation(fields: [createById], references: [id])
   createdAt   DateTime @default(now())
 }
 
 model Choice {
-  id        BigInt @id @default(autoincrement())
+  id        BigInt  @id @default(autoincrement())
   title     String
   eventId   BigInt
-  event     Event  @relation(fields: [eventId], references: [id])
-  lastPrice Int?   @db.SmallInt
+  event     Event   @relation(fields: [eventId], references: [id])
+  lastPrice Int?    @db.SmallInt
+  orders    Order[]
 
+  @@unique([id, eventId])
   @@index([eventId])
+}
+
+enum OrderSide {
+  BUY
+  SELL
+}
+
+enum OrderStatus {
+  OPEN
+  PARTIALLY_FILLED
+  FILLED
+}
+
+model Order {
+  id                BigInt      @id @default(autoincrement())
+  userId            BigInt
+  user              User        @relation(fields: [userId], references: [id])
+  eventId           BigInt
+  event             Event       @relation(fields: [eventId], references: [id])
+  choiceId          BigInt
+  choice            Choice      @relation(fields: [choiceId, eventId], references: [id, eventId])
+  side              OrderSide
+  price             Int         @db.SmallInt
+  quantity          BigInt
+  remainingQuantity BigInt
+  status            OrderStatus @default(OPEN)
+  idempotencyKey    String      @db.VarChar(128)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @default(now())
+  makerTrades       Trade[]     @relation("Maker")
+  takerTrades       Trade[]     @relation("Taker")
+
+  @@unique([userId, idempotencyKey])
+  @@index([choiceId, side, price, id])
+}
+
+model Trade {
+  id           BigInt   @id @default(autoincrement())
+  makerOrderId BigInt
+  makerOrder   Order    @relation("Maker", fields: [makerOrderId], references: [id])
+  takerOrderId BigInt
+  takerOrder   Order    @relation("Taker", fields: [takerOrderId], references: [id])
+  price        Int      @db.SmallInt
+  quantity     BigInt
+  createdAt    DateTime @default(now())
+
+  @@index([makerOrderId])
+  @@index([takerOrderId])
 }
 
 model Session {
