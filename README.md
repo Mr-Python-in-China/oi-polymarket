@@ -38,11 +38,28 @@ Your application will be available at `http://localhost:12968`.
 
 ## Tests
 
-Run the database-independent Node unit tests with `pnpm test` (or
-`pnpm run test:unit`). The dedicated Vitest configuration does not load the
-React Router RSC plugins. Tests cover JSON/OAuth state codecs, pagination,
-authorization, and event validation. Database and authentication dependencies
-are mocked; these tests do not verify the RSC transport or session middleware.
+Run both test projects with `pnpm test`, or only the database-independent Node
+unit tests with `pnpm run test:unit`. Run only integration tests with
+`pnpm run test:integration`. All projects share `vitest.config.ts`, without
+loading the React Router RSC plugins. Unit tests mock database and authentication
+dependencies; they do not verify the RSC transport or session middleware.
+
+The default Vitest configuration registers named `unit` and `integration`
+projects so the VS Code Vitest extension can discover both. Refresh the test
+explorer or reload the VS Code window after changing the configuration.
+Running all tests requires `TEST_DATABASE_URL`; selecting only `unit` does not.
+
+### Coverage
+
+Run `pnpm run test:coverage` for both projects, or
+`pnpm run test:integration:coverage` for integration coverage only. Both commands
+write HTML and LCOV reports to `coverage/all`, replacing the previous report.
+For unit coverage only, run `pnpm run test:coverage --project unit`.
+V8 measures application TypeScript/TSX, including untested files, but not
+PostgreSQL SQL functions. Generated reports are ignored by Git. No minimum
+coverage threshold is enforced yet.
+
+### Integration Database
 
 Rebuild the development container after updating its Compose configuration.
 It uses the existing PostgreSQL `db` service for both `oi-polymarket` and
