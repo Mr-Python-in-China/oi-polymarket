@@ -5,18 +5,15 @@
   "dockerComposeFile": ["./docker-compose.yml"],
   "workspaceFolder": "/workspaces/oi-polymarket",
   "service": "dev",
-
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
     "ghcr.io/devcontainers/features/node:2": {},
     "ghcr.io/nlstn/devcontainer-features/psql:1": {}
   },
-
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [12968],
-
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "/usr/local/share/nvm/nvm.sh install && /usr/local/share/nvm/nvm.sh use && corepack enable && corepack pnpm --version",
+  "postCreateCommand": "/usr/local/share/nvm/nvm.sh install && /usr/local/share/nvm/nvm.sh use && npx -y corepack enable && npx -y corepack pnpm --version",
   "postStartCommand": "psql --dbname=\"${DATABASE_URL:?DATABASE_URL must be set}\" -v ON_ERROR_STOP=1 -f /workspaces/oi-polymarket/.devcontainer/init-test-db.sql",
   "customizations": {
     "vscode": {
@@ -31,10 +28,8 @@
       ]
     }
   }
-
   // Configure tool-specific properties.
   // "customizations": {},
-
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "root"
 }
