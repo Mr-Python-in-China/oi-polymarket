@@ -16,6 +16,7 @@ export default async function confirmRegister() {
       registerConfirmationInfo.codeforcesHandle,
       registerConfirmationInfo.codeforcesAvatar,
       registerConfirmationInfo.codeforcesSub,
+      BigInt(registerConfirmationInfo.initialMoney),
     ),
   );
   const id = result[0]?.id as bigint | undefined;

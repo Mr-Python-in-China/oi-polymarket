@@ -13,8 +13,8 @@ import confirmRegister from "~/functions/confirmRegister";
 const RegisterConfirmationPage: FC<{
   codeforcesHandle: string;
   codeforcesRating: number;
-  initialMedal: number;
-}> = ({ codeforcesHandle, codeforcesRating, initialMedal }) => {
+  initialMoney: number;
+}> = ({ codeforcesHandle, codeforcesRating, initialMoney }) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const toLoginPage = useLinkClickHandler("/login");
@@ -33,7 +33,7 @@ const RegisterConfirmationPage: FC<{
       <h1>确认注册</h1>
       <p>Codeforces 用户名: {codeforcesHandle}</p>
       <p>Rating: {codeforcesRating}</p>
-      <p>初始金牌数: {initialMedal}</p>
+      <p>初始金牌数: {initialMoney}</p>
       <p>
         金牌是该网站的虚拟货币。你的初始金牌数与你的 Codeforces Rating
         相关。你确定要注册吗？

@@ -25,6 +25,7 @@ model User {
   codeforcesSub String   @unique @db.Bit(256)
   createdAt     DateTime @default(now())
   role          UserRole @default(USER)
+  money         BigInt
 
   events Event[]
   orders Order[]

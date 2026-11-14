@@ -15,7 +15,7 @@ type SessionData = {
     codeforcesHandle: string;
     codeforcesRating: number;
     codeforcesAvatar: string;
-    initialMedal: number;
+    initialMoney: number;
   };
 };
 

@@ -54,6 +54,7 @@ describe("event persistence", () => {
                 )
                 .join("")
                 .padEnd(256, "0"),
+              money: BigInt(1e7),
               role: "ADMIN",
             },
           });

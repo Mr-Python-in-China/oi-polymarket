@@ -37,6 +37,7 @@ beforeAll(async () => {
         .map((digit) => parseInt(digit, 16).toString(2).padStart(4, "0"))
         .join("")
         .padEnd(256, "0"),
+      money: BigInt(1e7),
     },
   });
   actorId = user.id;

@@ -110,7 +110,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
       codeforcesHandle: token.id_token.handle,
       codeforcesRating: token.id_token.rating ?? 0,
       codeforcesAvatar: token.id_token.avatar,
-      initialMedal: 2e7 + (token.id_token.rating ?? 0) * 1e4,
+      initialMoney: 2e7 + (token.id_token.rating ?? 0) * 1e4,
     });
     return redirect(
       "/register-confirmation?to=" + encodeURIComponent(state.to),
