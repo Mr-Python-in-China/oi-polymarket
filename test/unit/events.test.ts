@@ -43,7 +43,11 @@ describe("listEvents", () => {
   });
 
   it("uses the extra row only to detect another page", async () => {
-    const rows = [{ id: 3n }, { id: 2n }, { id: 1n }];
+    const rows = [
+      { id: 3n, choices: [] },
+      { id: 2n, choices: [] },
+      { id: 1n, choices: [] },
+    ];
     mocks.findMany.mockResolvedValue(rows);
     expect(await listEvents(4n, 2)).toEqual({
       events: rows.slice(0, 2),

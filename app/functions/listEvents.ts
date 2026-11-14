@@ -27,14 +27,19 @@ export default async function listEvents(
       choices: {
         select: {
           title: true,
-          lastPrice: true,
         },
         orderBy: { id: "asc" },
       },
     },
   });
   return {
-    events: res.slice(0, limits),
+    events: res.slice(0, limits).map((x) => ({
+      ...x,
+      choices: x.choices.map((y) => ({
+        title: y.title,
+        lastPrice: null, // TODO lastPrice 含义变化
+      })),
+    })),
     hasMore: res.length > limits,
   };
 }

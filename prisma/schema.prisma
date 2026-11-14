@@ -43,12 +43,11 @@ model Event {
 }
 
 model Choice {
-  id        BigInt  @id @default(autoincrement())
-  title     String
-  eventId   BigInt
-  event     Event   @relation(fields: [eventId], references: [id])
-  lastPrice Int?    @db.SmallInt
-  orders    Order[]
+  id      BigInt  @id @default(autoincrement())
+  title   String
+  eventId BigInt
+  event   Event   @relation(fields: [eventId], references: [id])
+  orders  Order[]
 
   @@unique([id, eventId])
   @@index([eventId])

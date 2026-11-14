@@ -85,7 +85,7 @@ async function fixture() {
 
 describe("SQL order matching", () => {
   it("loops in price/time priority, keeps a remainder, and resumes on a new order", async () => {
-    const { order, choiceId } = await fixture();
+    const { order } = await fixture();
     const expensive = await order("SELL", 600, 2n);
     const first = await order("SELL", 400, 3n);
     const second = await order("SELL", 400, 4n);
@@ -111,9 +111,6 @@ describe("SQL order matching", () => {
     expect(
       await prisma.order.findUniqueOrThrow({ where: { id: buy.id! } }),
     ).toMatchObject({ status: "FILLED", remainingQuantity: 0n });
-    expect(
-      await prisma.choice.findUniqueOrThrow({ where: { id: choiceId } }),
-    ).toMatchObject({ lastPrice: 500 });
   });
 
   it("prioritizes the highest bid for a sell", async () => {

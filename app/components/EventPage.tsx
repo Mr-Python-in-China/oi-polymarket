@@ -41,7 +41,7 @@ export const EventPage: FC<EventPageProps> = ({ event }) => {
         <h2>选项</h2>
         {event.choices.map((choice) => (
           <Card key={choice.id} title={choice.title}>
-            上次成交价：{choice.lastPrice !== null ? choice.lastPrice : "--"}
+            价格：{choice.lastPrice !== null ? choice.lastPrice : "--"}
           </Card>
         ))}
       </div>
